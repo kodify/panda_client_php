@@ -78,6 +78,17 @@ class Panda {
         }
 
         $url = $this->api_url() . $path . $suffix;
+
+        /*
+         * avoiding high cpu issue
+         * hackify?
+         */
+        if ($verb == 'GET') {
+            return file_get_contents($url);
+        }
+        /*
+         * end hack
+         */
         
         $curl = curl_init($url);
         if ($signed_data) {
